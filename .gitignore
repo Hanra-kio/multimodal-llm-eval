@@ -1,0 +1,15 @@
+# 포함할 디렉토리: llm_eval/, configs/
+# 그 외 모든 것을 제외
+*
+
+# 허용
+!.gitignore
+!llm_eval/
+!llm_eval/**
+!configs/
+!configs/**
+
+# Python 캐시는 제외
+__pycache__/
+*.pyc
+*.pyo

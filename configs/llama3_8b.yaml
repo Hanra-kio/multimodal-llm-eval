@@ -1,0 +1,31 @@
+# LLaMA 3 8B on TSRBench (via vLLM)
+# 1. Start vLLM: vllm serve meta-llama/Llama-3-8B-Instruct --port 8000
+# 2. Run: python -m llm_eval --config configs/llama3_8b.yaml
+
+model:
+  model: "openai/meta-llama/Llama-3-8B-Instruct"
+  temperature: 0.0
+  max_tokens: 256
+  max_concurrent: 10
+  timeout: 120
+  retries: 3
+  litellm_kwargs:
+    api_base: "http://localhost:8000/v1"
+    api_key: "dummy"
+
+dataset:
+  name: "tsrbench"
+  tasks:
+    - causal_reasoning
+  params:
+    data_dir: "/home/workspace/data/KETI/TSRBench"
+
+prompt:
+  builder: "tsrbench"
+  parser: "tsrbench"
+  ts_precision: 2
+  ts_subsample: 4
+
+output:
+  results_path: "results/llama3_8b_tsrbench/results.jsonl"
+  metrics_path: "results/llama3_8b_tsrbench/metrics.json"
